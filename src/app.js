@@ -1,8 +1,14 @@
 import express from "express";
 
 import indexRoutes from "./routes/api/v1/index.routes.js";
+import authRoutes from "./routes/api/v1/auth.routes.js";
+import errorMiddleware from "./middleware/error.middleware.js";
 
 const app = express();
+app.use(express.json());
+
 app.use("/api/v1", indexRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use(errorMiddleware);
 
 export default app;
