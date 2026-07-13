@@ -4,7 +4,6 @@ import ConflictError from "../errors/ConflictError.js";
 import UnauthorizedError from "../errors/UnauthorizedError.js";
 import NotFoundError from "../errors/NotFoundError.js";
 
-// Import the validator
 import { validateRegisterData } from "../validators/auth.validator.js";
 
 import {
@@ -19,7 +18,6 @@ export const registerUser = async ({
     email,
     password,
 }) => {
-    // Call the validator - removes ALL validation code below!
     validateRegisterData({ username, email, password });
 
     // Check if email already exists

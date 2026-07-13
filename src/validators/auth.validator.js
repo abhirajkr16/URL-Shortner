@@ -40,4 +40,10 @@ export const validateRegisterData = ({ username, email, password }) => {
   if (!/[0-9]/.test(password)) {
     throw new ValidationError("Password must contain at least one number");
   }
+  // if (password !== confirmPassword) {
+  //   throw new ValidationError("Passwords do not match");
+  // }
+  // if (!/[!"#$%^&*()-+=[]{}|;:,.<>?`~]/.test(password)) {
+  //   throw new ValidationError("Password must contain at least one special character");
+  // }
 };
