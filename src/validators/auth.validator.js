@@ -47,3 +47,16 @@ export const validateRegisterData = ({ username, email, password }) => {
   //   throw new ValidationError("Password must contain at least one special character");
   // }
 };
+
+
+export const validateLoginData  = ({email, password }) => {
+
+  if (!email) {
+    throw new ValidationError("Email is required");
+  }
+  if (!password) {
+    throw new ValidationError("Password is required");
+  }
+
+};
+
