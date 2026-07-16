@@ -7,15 +7,15 @@ async function startServer() {
   try {
     const connection = await pool.getConnection();
 
-    console.log("✅ Connected to MySQL");
+    console.log(" Connected to MySQL");
 
     connection.release();
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server is running on http://localhost:${PORT}`);
+      console.log(` Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error("❌ Database Connection Failed");
+    console.error(" Database Connection Failed");
     console.error(error.message);
   }
 }

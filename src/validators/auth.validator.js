@@ -49,7 +49,7 @@ export const validateRegisterData = ({ username, email, password }) => {
 };
 
 
-export const validateLoginData  = ({email, password }) => {
+export const validateLoginData = ({ email, password }) => {
 
   if (!email) {
     throw new ValidationError("Email is required");
