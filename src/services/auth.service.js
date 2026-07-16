@@ -38,7 +38,7 @@ export const registerUser = async ({
     const passwordHash = await bcrypt.hash(password, 10);
 
     // Create the user
-    const userId = await createUser({
+    const userId = await creatteUser({
         username,
         email,
         passwordHash,
