@@ -1,6 +1,7 @@
 import NotFoundError from "../errors/NotFoundError.js";
 
 import { findUrlByShortCode } from "../repositories/url.repository.js";
+import { createAnalytics } from "../repositories/analytics.repository.js";
 
 export const redirectToOriginalUrl = async (shortCode) => {
     const url = await findUrlByShortCode(shortCode);
@@ -15,6 +16,8 @@ export const redirectToOriginalUrl = async (shortCode) => {
     ) {
         throw new NotFoundError("Short URL has expired");
     }
+    // creating analytics record for each redirect
+    await createAnalytics(url.id);
 
     return url.original_url;
 };
