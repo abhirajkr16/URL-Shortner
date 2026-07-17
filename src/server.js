@@ -1,5 +1,6 @@
 import app from "./app.js";
 import pool from "./database/connection.js";
+import redisClient from "./config/redis.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -8,6 +9,9 @@ async function startServer() {
     const connection = await pool.getConnection();
 
     console.log(" Connected to MySQL");
+
+    await redisClient.connect();
+    console.log("Connected to Redis");
 
     connection.release();
 

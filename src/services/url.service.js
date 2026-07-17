@@ -3,6 +3,7 @@ import crypto from "crypto";
 import ConflictError from "../errors/ConflictError.js";
 import NotFoundError from "../errors/NotFoundError.js";
 import UnauthorizedError from "../errors/UnauthorizedError.js";
+import { deleteCache } from "./redis.service.js";
 
 import {
     createUrl,
@@ -120,6 +121,9 @@ export const updateUserUrl = async ({
         expiresAt: formattedExpiresAt,
     });
 
+    // clearing cache
+    await deleteCache(`url:${url.short_code}`);
+
     return await findUrlById(id);
 };
 
@@ -138,6 +142,8 @@ export const deleteUserUrl = async ({
     }
 
     await softDeleteUrl(id);
+    // clearing cache
+    await deleteCache(`url:${url.short_code}`);
 
     return;
 };
