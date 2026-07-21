@@ -1,12 +1,57 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Eye, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
+import { validateRegisterForm } from "./authValidation";
 
 import "./register.css";
 
 function RegisterPage() {
+    const [form, setForm] = useState({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        agreeTerms: false,
+    });
+
+    const [errors, setErrors] = useState({});
+
+
+
+    function handleChange(event) {
+        console.log(event.target.name, event.target.value);
+
+        const { name, value, type, checked } = event.target;
+
+        setForm((previousForm) => ({
+            ...previousForm,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+
+        setErrors((previousErrors) => ({
+            ...previousErrors,
+            [name]: "",
+        }));
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const validationErrors = validateRegisterForm(form);
+
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            console.table(form);
+
+
+        }
+    }
+
     return (
         <section className="register">
 
@@ -20,7 +65,7 @@ function RegisterPage() {
 
             <div className="container register__container">
 
-                {/* Left */}
+                {/* Left Side */}
 
                 <div className="register__content">
 
@@ -58,9 +103,9 @@ function RegisterPage() {
 
                 </div>
 
-                {/* Right */}
+                {/* Right Side */}
 
-                <Card >
+                <Card>
 
                     <div className="register__logo">
                         Shortify
@@ -68,61 +113,54 @@ function RegisterPage() {
 
                     <h2>Create Account</h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
 
-                        <div className="form-group">
+                        <Input
+                            label="Full Name"
+                            name="fullName"
+                            value={form.fullName}
+                            onChange={handleChange}
+                            placeholder="Enter your full name"
+                            error={errors.fullName}
+                        />
 
-                            <Input
-                                label="Full Name"
-                                placeholder="Enter your full name"
-                            />
+                        <Input
+                            label="Email"
+                            name="email"
+                            type="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            placeholder="Enter your email"
+                            error={errors.email}
+                        />
 
-                        </div>
+                        <Input
+                            label="Password"
+                            name="password"
+                            type="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            placeholder="Enter your password"
+                            error={errors.password}
+                        />
 
-                        <div className="form-group">
-
-                            <Input
-                                label="Email"
-                                type="email"
-                                placeholder="Enter your email"
-                            />
-
-                        </div>
-
-                        <div className="form-group">
-
-                            <Input
-                                label="Password"
-                                type="password"
-                                placeholder="Enter your password"
-                            >
-                                <Eye
-                                    size={20}
-                                    className="password-icon"
-                                />
-                            </Input>
-
-                        </div>
-
-                        <div className="form-group">
-
-                            <Input
-                                label="Confirm Password"
-                                type="password"
-                                placeholder="Confirm your password"
-                            >
-                                <Eye
-                                    size={20}
-                                    className="password-icon"
-                                />
-                            </Input>
-
-                        </div>
+                        <Input
+                            label="Confirm Password"
+                            name="confirmPassword"
+                            type="password"
+                            value={form.confirmPassword}
+                            onChange={handleChange}
+                            placeholder="Confirm your password"
+                            error={errors.confirmPassword}
+                        />
 
                         <label className="checkbox">
 
                             <input
                                 type="checkbox"
+                                name="agreeTerms"
+                                checked={form.agreeTerms}
+                                onChange={handleChange}
                             />
 
                             <span>
@@ -130,13 +168,19 @@ function RegisterPage() {
                                 <Link to="#">
                                     Terms
                                 </Link>
-                                {" "}&
+                                {" "} &
                                 <Link to="#">
                                     Privacy Policy
                                 </Link>
                             </span>
 
                         </label>
+
+                        {errors.agreeTerms && (
+                            <p className="input__error">
+                                {errors.agreeTerms}
+                            </p>
+                        )}
 
                         <Button
                             type="submit"
@@ -149,19 +193,15 @@ function RegisterPage() {
                     </form>
 
                     <div className="divider">
-
                         <span>OR</span>
-
                     </div>
 
                     <p className="register__footer">
-
                         Already have an account?
 
                         <Link to="/login">
                             Sign In →
                         </Link>
-
                     </p>
 
                 </Card>
