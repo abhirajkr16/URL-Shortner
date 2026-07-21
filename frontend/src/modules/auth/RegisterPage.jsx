@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Eye, ArrowLeft } from "lucide-react";
+import Button from "../../components/ui/Button";
 
 import "./register.css";
 
@@ -156,11 +157,13 @@ function RegisterPage() {
 
                         </label>
 
-                        <button
-                            className="register__button"
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            fullWidth
                         >
                             Create Account
-                        </button>
+                        </Button>
 
                     </form>
 

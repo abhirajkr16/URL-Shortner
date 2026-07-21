@@ -91,7 +91,7 @@
     border-color: var(--color-primary);
 }
 
-.register__button {
+/* .register__button {
     width: 100%;
     margin-top: 10px;
     padding: 15px;
@@ -111,7 +111,7 @@
 
 .register__button:hover {
     background: var(--color-primary-hover);
-}
+} */
 
 .register__footer {
     margin-top: 24px;
