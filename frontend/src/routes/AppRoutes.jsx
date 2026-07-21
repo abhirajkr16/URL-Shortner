@@ -1,22 +1,44 @@
-// import { Outlet } from "react-router-dom";
-
-// function AuthLayout() {
-//     return (
-//         <main>
-//             <Outlet />
-//         </main>
-//     );
-// }
-
-// export default AuthLayout;
-
 import { Routes, Route } from "react-router-dom";
+
+import PublicLayout from "../layouts/PublicLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
+
 import LandingPage from "../modules/landing/LandingPage";
+import LoginPage from "../modules/auth/LoginPage";
+import RegisterPage from "../modules/auth/RegisterPage";
 
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<LandingPage />} />
+
+            {/* Public Routes */}
+            <Route element={<PublicLayout />}>
+                <Route
+                    path="/"
+                    element={<LandingPage />}
+                />
+            </Route>
+
+            {/* Authentication Routes */}
+            <Route element={<AuthLayout />}>
+                <Route
+                    path="/login"
+                    element={<LoginPage />}
+                />
+
+                <Route
+                    path="/register"
+                    element={<RegisterPage />}
+                />
+            </Route>
+
+            {/* Dashboard */}
+            <Route
+                path="/dashboard"
+                element={<DashboardLayout />}
+            />
+
         </Routes>
     );
 }
