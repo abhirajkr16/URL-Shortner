@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Eye, ArrowLeft } from "lucide-react";
 import Button from "../../components/ui/Button";
+import Card from "../../components/ui/Card";
+import Input from "../../components/ui/Input";
 
 import "./register.css";
 
@@ -58,7 +60,7 @@ function RegisterPage() {
 
                 {/* Right */}
 
-                <div className="register__card">
+                <Card >
 
                     <div className="register__logo">
                         Shortify
@@ -70,12 +72,8 @@ function RegisterPage() {
 
                         <div className="form-group">
 
-                            <label>
-                                Full Name
-                            </label>
-
-                            <input
-                                type="text"
+                            <Input
+                                label="Full Name"
                                 placeholder="Enter your full name"
                             />
 
@@ -83,11 +81,8 @@ function RegisterPage() {
 
                         <div className="form-group">
 
-                            <label>
-                                Email
-                            </label>
-
-                            <input
+                            <Input
+                                label="Email"
                                 type="email"
                                 placeholder="Enter your email"
                             />
@@ -96,45 +91,31 @@ function RegisterPage() {
 
                         <div className="form-group">
 
-                            <label>
-                                Password
-                            </label>
-
-                            <div className="password-field">
-
-                                <input
-                                    type="password"
-                                    placeholder="Enter your password"
-                                />
-
+                            <Input
+                                label="Password"
+                                type="password"
+                                placeholder="Enter your password"
+                            >
                                 <Eye
                                     size={20}
                                     className="password-icon"
                                 />
-
-                            </div>
+                            </Input>
 
                         </div>
 
                         <div className="form-group">
 
-                            <label>
-                                Confirm Password
-                            </label>
-
-                            <div className="password-field">
-
-                                <input
-                                    type="password"
-                                    placeholder="Confirm your password"
-                                />
-
+                            <Input
+                                label="Confirm Password"
+                                type="password"
+                                placeholder="Confirm your password"
+                            >
                                 <Eye
                                     size={20}
                                     className="password-icon"
                                 />
-
-                            </div>
+                            </Input>
 
                         </div>
 
@@ -183,7 +164,7 @@ function RegisterPage() {
 
                     </p>
 
-                </div>
+                </Card>
 
             </div>
 
