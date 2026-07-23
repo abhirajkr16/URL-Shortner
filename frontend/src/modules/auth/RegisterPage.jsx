@@ -7,6 +7,7 @@ import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import { validateRegisterForm } from "./authValidation";
 import useForm from "../../hooks/useForm";
+import { registerUser } from "../../services/authService";
 
 import "./register.css";
 
@@ -18,23 +19,42 @@ function RegisterPage() {
         handleChange,
     } = useForm({
         fullName: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
         agreeTerms: false,
     });
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         const validationErrors = validateRegisterForm(form);
 
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0) {
-            console.table(form);
+        if (Object.keys(validationErrors).length > 0) {
+            return;
+        }
 
+        try {
+            const response = await registerUser({
+                fullName: form.fullName,
+                username: form.username,
+                email: form.email,
+                password: form.password,
+            });
 
+            console.log(response);
+
+            alert("Registration successful!");
+
+        } catch (error) {
+            console.log("Full Error:", error);
+            console.log("Response:", error.response);
+            console.log("Data:", error.response?.data);
+
+            alert(error.response?.data?.message || "Registration failed.");
         }
     }
 
@@ -108,6 +128,14 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Enter your full name"
                             error={errors.fullName}
+                        />
+                        <Input
+                            label="Username"
+                            name="username"
+                            value={form.username}
+                            onChange={handleChange}
+                            placeholder="Enter your username"
+                            error={errors.username}
                         />
 
                         <Input

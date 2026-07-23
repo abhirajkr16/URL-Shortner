@@ -7,6 +7,7 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 
 import { validateLoginForm } from "./authValidation";
+import { loginUser } from "../../services/authService";
 
 import "./login.css";
 
@@ -38,7 +39,7 @@ function LoginPage() {
 
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
 
         event.preventDefault();
 
@@ -47,9 +48,28 @@ function LoginPage() {
 
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0) {
+        if (Object.keys(validationErrors).length > 0) {
+            return;
+        }
 
-            console.table(form);
+        try {
+
+            const response =
+                await loginUser(form);
+
+            console.log(response);
+
+            alert("Login successful!");
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                error.response?.data?.message ||
+                "Login failed."
+            );
 
         }
 

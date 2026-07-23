@@ -1,5 +1,11 @@
 export function validateRegisterForm(form) {
-
+    // console.log(form);
+    // if (!form.username.trim()) {
+    //     console.log("Username =", form.username);
+    //     console.log("Type =", typeof form.username);
+    //     console.log("Length =", form.username?.length);
+    //     console.log("Regex =", /^[a-zA-Z0-9_]+$/.test(form.username?.trim()));
+    // }
     const errors = {};
 
     if (!form.fullName.trim()) {
@@ -9,7 +15,21 @@ export function validateRegisterForm(form) {
         errors.fullName =
             "Full name must be at least 3 characters.";
     }
-
+    if (!form.username.trim()) {
+        errors.username = "Username is required.";
+    }
+    else if (form.username.trim().length < 3) {
+        errors.username =
+            "Username must be at least 3 characters.";
+    }
+    else if (form.username.length > 50) {
+        errors.username =
+            "Username cannot exceed 50 characters.";
+    }
+    else if (!/^[a-zA-Z0-9_]+$/.test(form.username.trim())) {
+        errors.username =
+            "Username can only contain letters, numbers and underscores.";
+    }
     if (!form.email.trim()) {
         errors.email = "Email is required.";
     }
