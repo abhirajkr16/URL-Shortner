@@ -150,7 +150,7 @@ function LoginPage() {
 
                             </label>
 
-                            <Link to="#">
+                            <Link to="#" className="forgetPass">
                                 Forgot Password?
                             </Link>
 

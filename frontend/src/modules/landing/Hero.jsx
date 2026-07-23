@@ -84,19 +84,3 @@ function Hero() {
 }
 
 export default Hero;
-
-// function Hero() {
-//     return (
-//         <div
-//             style={{
-//                 color: "white",
-//                 fontSize: "40px",
-//                 padding: "50px",
-//             }}
-//         >
-//             Hero Component Working
-//         </div>
-//     );
-// }
-
-// export default Hero;

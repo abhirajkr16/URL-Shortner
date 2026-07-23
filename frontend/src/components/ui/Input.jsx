@@ -20,14 +20,9 @@ function Input({
     return (
         <div className="input">
 
-            {label && (
-                <label className="input__label">
-                    {label}
-                </label>
-            )}
+            {label && (<label className="input__label">{label}</label>)}
 
             <div className="input__wrapper">
-
                 <input
                     className={`input__field ${error ? "input__field--error" : ""}`}
                     name={name}

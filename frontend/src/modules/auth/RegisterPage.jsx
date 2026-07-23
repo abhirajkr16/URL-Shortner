@@ -6,37 +6,23 @@ import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import { validateRegisterForm } from "./authValidation";
+import useForm from "../../hooks/useForm";
 
 import "./register.css";
 
 function RegisterPage() {
-    const [form, setForm] = useState({
+    const {
+        form,
+        errors,
+        setErrors,
+        handleChange,
+    } = useForm({
         fullName: "",
         email: "",
         password: "",
         confirmPassword: "",
         agreeTerms: false,
     });
-
-    const [errors, setErrors] = useState({});
-
-
-
-    function handleChange(event) {
-        console.log(event.target.name, event.target.value);
-
-        const { name, value, type, checked } = event.target;
-
-        setForm((previousForm) => ({
-            ...previousForm,
-            [name]: type === "checkbox" ? checked : value,
-        }));
-
-        setErrors((previousErrors) => ({
-            ...previousErrors,
-            [name]: "",
-        }));
-    }
 
     function handleSubmit(event) {
         event.preventDefault();
