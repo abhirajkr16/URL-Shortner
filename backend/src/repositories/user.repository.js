@@ -2,6 +2,7 @@ import pool from "../database/connection.js";
 
 const USER_COLUMNS = `
     id,
+    full_name,
     username,
     email,
     password_hash,
@@ -12,6 +13,7 @@ const USER_COLUMNS = `
 
 const USER_PUBLIC_COLUMNS = `
     id,
+    full_name,
     username,
     email,
     created_at,
@@ -24,10 +26,11 @@ export const findUserByEmail = async (email) => {
         SELECT ${USER_COLUMNS}
         FROM users
         WHERE email = ?
-          AND deleted_at IS NULL
+        AND deleted_at IS NULL
         `,
-    [email],
+    [email]
   );
+
   return rows[0];
 };
 
@@ -37,10 +40,11 @@ export const findUserByUsername = async (username) => {
         SELECT ${USER_COLUMNS}
         FROM users
         WHERE username = ?
-          AND deleted_at IS NULL
+        AND deleted_at IS NULL
         `,
-    [username],
+    [username]
   );
+
   return rows[0];
 };
 
@@ -50,28 +54,38 @@ export const findUserById = async (id) => {
         SELECT ${USER_PUBLIC_COLUMNS}
         FROM users
         WHERE id = ?
-          AND deleted_at IS NULL
+        AND deleted_at IS NULL
         `,
-    [id],
+    [id]
   );
+
   return rows[0];
 };
 
-export const createUser = async ({ username, email, passwordHash }) => {
+export const createUser = async ({
+  fullName,
+  username,
+  email,
+  passwordHash,
+}) => {
   const [result] = await pool.execute(
     `
-      INSERT INTO users
-      (
-          username,
-          email,
-          password_hash
-      )
-      VALUES (?, ?, ?)
-    `,
-    [username, email, passwordHash],
+        INSERT INTO users
+        (
+            full_name,
+            username,
+            email,
+            password_hash
+        )
+        VALUES (?, ?, ?, ?)
+        `,
+    [
+      fullName,
+      username,
+      email,
+      passwordHash,
+    ]
   );
 
   return result.insertId;
 };
-
-

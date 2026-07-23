@@ -8,10 +8,17 @@ import Input from "../../components/ui/Input";
 
 import { validateLoginForm } from "./authValidation";
 import { loginUser } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+
+import {
+    saveToken,
+    saveUser,
+} from "../../utils/token";
 
 import "./login.css";
 
 function LoginPage() {
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         email: "",
@@ -54,12 +61,15 @@ function LoginPage() {
 
         try {
 
-            const response =
-                await loginUser(form);
+            const response = await loginUser(form);
 
-            console.log(response);
+            // console.log(response);
 
-            alert("Login successful!");
+            saveToken(response.data.token);
+
+            saveUser(response.data.user);
+
+            navigate("/dashboard");
 
         }
         catch (error) {

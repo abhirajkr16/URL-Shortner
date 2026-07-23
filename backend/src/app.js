@@ -1,13 +1,23 @@
 import express from "express";
+import cors from "cors";
 
 import indexRoutes from "./routes/api/v1/index.routes.js";
 import authRoutes from "./routes/api/v1/auth.routes.js";
 import urlRoutes from "./routes/api/v1/url.routes.js";
-import errorMiddleware from "./middleware/error.middleware.js";
 import redirectRoutes from "./routes/api/v1/redirect.routes.js";
 import analyticsRoutes from "./routes/api/v1/analytics.routes.js";
 
+import errorMiddleware from "./middleware/error.middleware.js";
+
 const app = express();
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
+
 app.use(express.json());
 
 app.use("/api/v1", indexRoutes);

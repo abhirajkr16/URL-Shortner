@@ -7,6 +7,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import LandingPage from "../modules/landing/LandingPage";
 import LoginPage from "../modules/auth/LoginPage";
 import RegisterPage from "../modules/auth/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
     return (
@@ -36,7 +37,11 @@ function AppRoutes() {
             {/* Dashboard */}
             <Route
                 path="/dashboard"
-                element={<DashboardLayout />}
+                element={
+                    <ProtectedRoute>
+                        <DashboardLayout />
+                    </ProtectedRoute>
+                }
             />
 
         </Routes>
