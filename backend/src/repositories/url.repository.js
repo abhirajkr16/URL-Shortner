@@ -69,26 +69,31 @@ export const findUrlByShortCode = async (shortCode) => {
     return rows[0];
 };
 
+
 export const findUrlsByUserId = async (userId) => {
+
     const [rows] = await pool.execute(
         `
-      SELECT
-        id,
-        original_url,
-        short_code,
-        custom_alias,
-        expires_at,
-        created_at,
-        updated_at
-      FROM urls
-      WHERE user_id = ?
-        AND deleted_at IS NULL
-      ORDER BY created_at DESC
-    `,
+        SELECT
+            id,
+            user_id,
+            original_url,
+            short_code,
+            custom_alias,
+            expires_at,
+            created_at,
+            updated_at,
+            deleted_at
+        FROM urls
+        WHERE user_id = ?
+          AND deleted_at IS NULL
+        ORDER BY created_at DESC
+        `,
         [userId]
     );
 
     return rows;
+
 };
 
 export const updateUrl = async ({

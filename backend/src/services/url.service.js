@@ -89,10 +89,12 @@ export const updateUserUrl = async ({
     id,
     userId,
     originalUrl,
+    customAlias,
     expiresAt,
 }) => {
     validateUpdateUrlData({
         originalUrl,
+        customAlias,
         expiresAt,
     });
 
@@ -108,6 +110,13 @@ export const updateUserUrl = async ({
         );
     }
 
+    if (customAlias && customAlias !== url.custom_alias) {
+        const existingUrl = await findUrlByShortCode(customAlias);
+        if (existingUrl && existingUrl.id !== id) {
+            throw new ConflictError("Custom alias already taken");
+        }
+    }
+
     const formattedExpiresAt = expiresAt
         ? new Date(expiresAt)
             .toISOString()
@@ -118,10 +127,10 @@ export const updateUserUrl = async ({
     await updateUrl({
         id,
         originalUrl,
+        customAlias,
         expiresAt: formattedExpiresAt,
     });
 
-    // clearing cache
     await deleteCache(`url:${url.short_code}`);
 
     return await findUrlById(id);
@@ -142,7 +151,6 @@ export const deleteUserUrl = async ({
     }
 
     await softDeleteUrl(id);
-    // clearing cache
     await deleteCache(`url:${url.short_code}`);
 
     return;

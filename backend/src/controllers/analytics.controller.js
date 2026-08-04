@@ -1,5 +1,37 @@
-import { getUrlAnalytics } from "../services/analytics.service.js";
+import {
+    getUrlAnalytics,
+    getAnalyticsOverview,
+} from "../services/analytics.service.js";
 
+export const getOverview = async (
+    req,
+    res,
+    next
+) => {
+
+    try {
+
+        const analytics =
+            await getAnalyticsOverview(
+                req.user.id
+            );
+
+        return res.status(200).json({
+
+            success: true,
+
+            data: analytics,
+
+        });
+
+    }
+    catch (error) {
+
+        next(error);
+
+    }
+
+};
 export const getAnalytics = async (req, res, next) => {
     try {
         const analytics = await getUrlAnalytics({

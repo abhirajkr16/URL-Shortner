@@ -11,6 +11,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import DashboardPage from "../modules/dashboard/DashboardPage";
 import AnalyticsPage from "../modules/analytics/AnalyticsPage";
 import UrlPage from "../modules/urls/UrlPage";
+import AnalyticsOverviewPage from "../modules/analytics/AnalyticsOverviewPage";
 
 function AppRoutes() {
     return (
@@ -51,6 +52,10 @@ function AppRoutes() {
                     element={<DashboardPage />}
                 />
 
+                <Route
+                    path="analytics"
+                    element={<AnalyticsOverviewPage />}
+                />
                 <Route
                     path="analytics/:urlId"
                     element={<AnalyticsPage />}

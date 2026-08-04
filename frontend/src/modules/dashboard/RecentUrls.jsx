@@ -24,7 +24,7 @@ function RecentUrls({
         try {
 
             const response = await getUserUrls();
-            // console.log("Response:", response);
+
 
             const allUrls = response.data;
 

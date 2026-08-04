@@ -15,7 +15,7 @@ function Sidebar({ collapsed }) {
         },
         {
             name: "Analytics",
-            path: "/analytics",
+            path: "/dashboard/analytics",
             icon: "fa-solid fa-chart-simple",
         },
         {
