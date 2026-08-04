@@ -9,6 +9,8 @@ import LoginPage from "../modules/auth/LoginPage";
 import RegisterPage from "../modules/auth/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardPage from "../modules/dashboard/DashboardPage";
+import AnalyticsPage from "../modules/analytics/AnalyticsPage";
+import UrlPage from "../modules/urls/UrlPage";
 
 function AppRoutes() {
     return (
@@ -47,6 +49,16 @@ function AppRoutes() {
                 <Route
                     index
                     element={<DashboardPage />}
+                />
+
+                <Route
+                    path="analytics/:urlId"
+                    element={<AnalyticsPage />}
+                />
+
+                <Route
+                    path="urls"
+                    element={<UrlPage />}
                 />
             </Route>
 

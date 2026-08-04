@@ -5,9 +5,11 @@ import ConfirmationModal from "../../components/ui/ConfirmationModal";
 
 import { copyToClipboard } from "../../utils/clipboard";
 
+import { useNavigate } from "react-router-dom";
 function UrlTableRow({
     url,
     onDelete,
+    onEdit,
 }) {
 
     const [showCopyPopup, setShowCopyPopup] = useState(false);
@@ -15,6 +17,7 @@ function UrlTableRow({
     const [showDeletePopup, setShowDeletePopup] = useState(false);
 
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const navigate = useNavigate();
 
     async function handleCopy() {
 
@@ -109,6 +112,25 @@ function UrlTableRow({
                         </button>
 
                     </div>
+
+                    <button
+                        className="edit-button"
+                        onClick={() => onEdit(url)}
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        className="analytics-button"
+                        onClick={() => {
+                            navigate(
+                                `/dashboard/analytics/${url.id}`
+                            );
+                        }}
+                    >
+                        Analytics
+                    </button>
+
 
                     <div className="button-wrapper">
 

@@ -1,0 +1,117 @@
+.analytics-page {
+
+    padding: 2rem;
+
+}
+
+.analytics-header {
+
+    margin-bottom: 2rem;
+
+}
+
+.analytics-header h1 {
+
+    font-size: 2rem;
+
+    color: white;
+
+}
+
+.analytics-header p {
+
+    color: #94A3B8;
+
+    margin-top: .4rem;
+
+}
+
+.analytics-summary {
+
+    margin-bottom: 2rem;
+
+}
+
+.analytics-card {
+
+    width: 240px;
+
+    background: #111827;
+
+    border: 1px solid #1F2937;
+
+    border-radius: 14px;
+
+    padding: 24px;
+
+}
+
+.analytics-card h3 {
+
+    color: #94A3B8;
+
+    margin-bottom: 10px;
+
+}
+
+.analytics-card h2 {
+
+    color: #22C55E;
+
+    font-size: 2.5rem;
+
+}
+
+.analytics-history {
+
+    margin-top: 2rem;
+
+}
+
+.analytics-history h2 {
+
+    margin-bottom: 1rem;
+
+}
+
+.analytics-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #111827;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+}
+
+.analytics-table th {
+
+    background: #1F2937;
+
+    color: white;
+
+    text-align: left;
+
+    padding: 16px;
+
+}
+
+.analytics-table td {
+
+    padding: 16px;
+
+    border-top: 1px solid #374151;
+
+    color: #CBD5E1;
+
+}
+
+.analytics-table tbody tr:hover {
+
+    background: #1A2435;
+
+}

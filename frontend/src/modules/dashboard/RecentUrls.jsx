@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 
-import { getUserUrls, deleteUrl } from "../urls/urlService";
+import { getUserUrls, deleteUrl, updateUrl, } from "../urls/urlService";
 import UrlTable from "../urls/UrlTable";
+import EditUrlModal from "../urls/EditUrlModal";
 
-function RecentUrls() {
+function RecentUrls({
+    title = "Recent URLs",
+    limit = null,
+}) {
 
     const [urls, setUrls] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedUrl, setSelectedUrl] = useState(null);
+
+    const [showEditModal, setShowEditModal] = useState(false);
 
     useEffect(() => {
         fetchUrls();
@@ -19,7 +26,13 @@ function RecentUrls() {
             const response = await getUserUrls();
             // console.log("Response:", response);
 
-            setUrls(response.data);
+            const allUrls = response.data;
+
+            setUrls(
+                limit
+                    ? allUrls.slice(0, limit)
+                    : allUrls
+            );
 
         }
         catch (error) {
@@ -54,6 +67,52 @@ function RecentUrls() {
         }
 
     }
+    function handleEdit(url) {
+
+        setSelectedUrl(url);
+
+        setShowEditModal(true);
+
+    }
+    async function handleUpdate(updatedUrl) {
+
+        try {
+
+            const response = await updateUrl(
+                updatedUrl.id,
+                {
+                    originalUrl: updatedUrl.originalUrl,
+                    expiresAt: updatedUrl.expiresAt,
+                }
+            );
+
+            setUrls((previousUrls) =>
+
+                previousUrls.map((url) =>
+
+                    url.id === updatedUrl.id
+                        ? response.data
+                        : url
+
+                )
+
+            );
+
+            setShowEditModal(false);
+
+            setSelectedUrl(null);
+
+        }
+        catch (error) {
+
+            console.error(
+                error.response?.data ||
+                error.message
+            );
+
+        }
+
+    }
 
     if (loading) {
         return <p>Loading URLs...</p>;
@@ -63,11 +122,30 @@ function RecentUrls() {
 
         <section className="recent-urls">
 
-            <h2>Recent URLs</h2>
+            <h2>{title}</h2>
 
             <UrlTable
                 urls={urls}
                 onDelete={handleDelete}
+                onEdit={handleEdit}
+            />
+
+            <EditUrlModal
+
+                isOpen={showEditModal}
+
+                url={selectedUrl}
+
+                onClose={() => {
+
+                    setShowEditModal(false);
+
+                    setSelectedUrl(null);
+
+                }}
+
+                onSave={handleUpdate}
+
             />
 
         </section>

@@ -24,7 +24,10 @@ function DashboardPage() {
 
             <CreateUrlCard />
 
-            <RecentUrls />
+            <RecentUrls
+                title="Recent URLs"
+                limit={5}
+            />
 
         </section>
 

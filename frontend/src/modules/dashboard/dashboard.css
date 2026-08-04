@@ -268,3 +268,103 @@
     position: relative;
     display: inline-flex;
 }
+
+.edit-button {
+
+    background: #3B82F6;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: .5rem .8rem;
+
+    cursor: pointer;
+
+    font-size: .9rem;
+
+    margin-right: .5rem;
+
+}
+
+.edit-button:hover {
+
+    background: #2563EB;
+
+}
+
+.confirm-button {
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: #22C55E;
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: .2s;
+
+}
+
+.confirm-button:hover {
+
+    background: #16A34A;
+
+}
+
+.confirmation-modal {
+
+    width: 480px;
+
+    max-width: 90%;
+
+    background: #111827;
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, .06);
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    animation: modalPop .2s ease;
+
+}
+
+.analytics-button {
+
+    background: #8B5CF6;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: .5rem .8rem;
+
+    cursor: pointer;
+
+    font-size: .9rem;
+
+    margin-right: .5rem;
+
+    transition: .2s;
+
+}
+
+.analytics-button:hover {
+
+    background: #7C3AED;
+
+}

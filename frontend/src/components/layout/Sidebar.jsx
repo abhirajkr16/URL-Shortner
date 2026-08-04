@@ -10,7 +10,7 @@ function Sidebar({ collapsed }) {
         },
         {
             name: "My URLs",
-            path: "/urls",
+            path: "/dashboard/urls",
             icon: "fa-solid fa-link",
         },
         {
@@ -20,7 +20,7 @@ function Sidebar({ collapsed }) {
         },
         {
             name: "Profile",
-            path: "/profile",
+            path: "/dashboard/profile",
             icon: "fa-solid fa-user",
         },
     ];

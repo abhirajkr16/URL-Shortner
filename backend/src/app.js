@@ -23,7 +23,7 @@ app.use(express.json());
 app.use("/api/v1", indexRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/urls", urlRoutes);
-app.use("/api/v1/redirect", redirectRoutes);
+app.use("/", redirectRoutes);
 app.use("/api/v1/analytics", analyticsRoutes);
 
 app.use(errorMiddleware);
