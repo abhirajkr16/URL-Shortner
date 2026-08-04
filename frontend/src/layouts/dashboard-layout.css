@@ -1,0 +1,49 @@
+.dashboard-shell {
+    display: flex;
+    height: 100vh;
+    background: #0B1120;
+    position: relative;
+}
+
+.dashboard-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dashboard-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+}
+
+/* Floating Toggle */
+.floating-toggle {
+    position: absolute;
+    top: 45px;
+    left: 250px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
+    transition: .3s ease;
+    z-index: 999;
+}
+
+.floating-toggle.collapsed {
+    left: 82px;
+}
+
+.floating-toggle:hover {
+    background: #1E293B;
+    transform: scale(1.05);
+}

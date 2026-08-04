@@ -8,6 +8,7 @@ import LandingPage from "../modules/landing/LandingPage";
 import LoginPage from "../modules/auth/LoginPage";
 import RegisterPage from "../modules/auth/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
+import DashboardPage from "../modules/dashboard/DashboardPage";
 
 function AppRoutes() {
     return (
@@ -42,7 +43,12 @@ function AppRoutes() {
                         <DashboardLayout />
                     </ProtectedRoute>
                 }
-            />
+            >
+                <Route
+                    index
+                    element={<DashboardPage />}
+                />
+            </Route>
 
         </Routes>
     );

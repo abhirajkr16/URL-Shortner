@@ -1,0 +1,54 @@
+import "./ConfirmationModal.css";
+
+function ConfirmationModal({
+    isOpen,
+    title,
+    message,
+    confirmText = "Confirm",
+    cancelText = "Cancel",
+    confirmType = "danger",
+    onConfirm,
+    onCancel,
+}) {
+
+    if (!isOpen) {
+        return null;
+    }
+
+    return (
+
+        <div className="modal-overlay">
+
+            <div className="confirmation-modal">
+
+                <h3>{title}</h3>
+
+                <p>{message}</p>
+
+                <div className="modal-actions">
+
+                    <button
+                        className="cancel-button"
+                        onClick={onCancel}
+                    >
+                        {cancelText}
+                    </button>
+
+                    <button
+                        className={`confirm-button ${confirmType}`}
+                        onClick={onConfirm}
+                    >
+                        {confirmText}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
+}
+
+export default ConfirmationModal;
