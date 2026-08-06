@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { createShortUrl } from "../urls/urlService";
 import Button from "../../components/ui/Button";
+import TooltipPopup from "../../components/ui/TooltipPopup";
 
 function QRForm({
 
@@ -20,6 +21,15 @@ function QRForm({
     });
 
     const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+        };
+    }, []);
 
     async function handleSubmit(event) {
 
@@ -38,13 +48,18 @@ function QRForm({
 
         catch (error) {
 
-            console.error(
+            console.error(error);
 
-                error.response?.data ||
-
-                error.message
-
+            setErrorMsg(
+                error.response?.data?.message ||
+                "Something went wrong. Please try again."
             );
+            setShowError(true);
+
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => {
+                setShowError(false);
+            }, 3000);
 
         }
 
@@ -81,6 +96,7 @@ function QRForm({
         <form
             className="qr-form"
             onSubmit={handleSubmit}
+            style={{ position: "relative" }}
         >
 
             <div className="form-group">
@@ -156,20 +172,16 @@ function QRForm({
             <Button
                 type="submit"
                 fullWidth
-                disabled={loading}
+                loading={loading}
             >
-
-                {
-
-                    loading
-
-                        ? "Generating..."
-
-                        : "Generate QR"
-
-                }
-
+                Generate QR
             </Button>
+
+            <TooltipPopup
+                show={showError}
+                message={errorMsg}
+                type="error"
+            />
 
         </form>
 
