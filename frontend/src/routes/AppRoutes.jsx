@@ -18,6 +18,7 @@ import TermsPage from "../modules/terms/TermsPage";
 import ProfilePage from "../modules/profile/ProfilePage";
 import QRPage from "../modules/qr/QRPage";
 import SettingsPage from "../modules/settings/SettingsPage";
+import NotFoundPage from "../modules/not-found/NotFoundPage";
 
 function AppRoutes() {
     return (
@@ -105,6 +106,11 @@ function AppRoutes() {
                 />
 
             </Route>
+
+            <Route
+                path="*"
+                element={<NotFoundPage />}
+            />
 
 
 

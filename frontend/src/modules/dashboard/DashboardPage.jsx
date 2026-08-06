@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DashboardCards from "./DashboardCards";
 import CreateUrlCard from "./CreateUrlCard";
 import RecentUrls from "./RecentUrls";
@@ -5,6 +6,11 @@ import RecentUrls from "./RecentUrls";
 import "./dashboard.css";
 
 function DashboardPage() {
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    function handleUrlCreated() {
+        setRefreshTrigger((prev) => prev + 1);
+    }
 
     return (
 
@@ -20,13 +26,15 @@ function DashboardPage() {
 
             </div>
 
-            <DashboardCards />
+            <DashboardCards refreshTrigger={refreshTrigger} />
 
-            <CreateUrlCard />
+            <CreateUrlCard onUrlCreated={handleUrlCreated} />
 
             <RecentUrls
                 title="Recent URLs"
                 limit={5}
+                refreshTrigger={refreshTrigger}
+                onUrlChange={handleUrlCreated}
             />
 
         </section>

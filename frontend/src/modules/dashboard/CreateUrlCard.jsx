@@ -3,7 +3,7 @@ import { useState } from "react";
 import { validateUrlForm } from "../urls/urlValidation";
 import { createShortUrl } from "../urls/urlService";
 
-function CreateUrlCard() {
+function CreateUrlCard({ onUrlCreated }) {
     const [showAdvanced, setShowAdvanced] = useState(false);
 
     const [form, setForm] = useState({
@@ -56,6 +56,10 @@ function CreateUrlCard() {
             });
 
             setShowAdvanced(false);
+
+            if (onUrlCreated) {
+                onUrlCreated();
+            }
         } catch (error) {
             setServerError(
                 error.response?.data?.message ||

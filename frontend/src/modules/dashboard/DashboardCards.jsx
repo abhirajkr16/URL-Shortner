@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getDashboardStats } from "./dashboardService";
 
-function DashboardCards() {
+function DashboardCards({ refreshTrigger }) {
 
     const [stats, setStats] = useState({
 
@@ -18,7 +18,7 @@ function DashboardCards() {
 
         fetchDashboardStats();
 
-    }, []);
+    }, [refreshTrigger]);
 
     async function fetchDashboardStats() {
 

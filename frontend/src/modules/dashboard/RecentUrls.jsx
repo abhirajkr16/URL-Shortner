@@ -8,6 +8,8 @@ import EditUrlModal from "../urls/EditUrlModal";
 function RecentUrls({
     title = "Recent URLs",
     limit = null,
+    refreshTrigger,
+    onUrlChange,
 }) {
 
     const [urls, setUrls] = useState([]);
@@ -20,7 +22,7 @@ function RecentUrls({
 
     useEffect(() => {
         fetchUrls();
-    }, []);
+    }, [refreshTrigger]);
 
     async function fetchUrls() {
 
@@ -59,6 +61,11 @@ function RecentUrls({
             setUrls((previousUrls) =>
                 previousUrls.filter((url) => url.id !== id)
             );
+
+            if (onUrlChange) {
+                onUrlChange();
+            }
+
             return true;
 
         }
@@ -104,6 +111,10 @@ function RecentUrls({
             setShowEditModal(false);
 
             setSelectedUrl(null);
+
+            if (onUrlChange) {
+                onUrlChange();
+            }
 
         }
         catch (error) {

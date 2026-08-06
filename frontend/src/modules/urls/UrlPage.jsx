@@ -1,9 +1,15 @@
+import { useState } from "react";
 import CreateUrlCard from "../dashboard/CreateUrlCard";
 import RecentUrls from "../dashboard/RecentUrls";
 
 import "./urls.css";
 
 function UrlPage() {
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    function handleUrlCreated() {
+        setRefreshTrigger((prev) => prev + 1);
+    }
 
     return (
 
@@ -25,10 +31,12 @@ function UrlPage() {
 
             </div>
 
-            <CreateUrlCard />
+            <CreateUrlCard onUrlCreated={handleUrlCreated} />
 
             <RecentUrls
                 title="All URLs"
+                refreshTrigger={refreshTrigger}
+                onUrlChange={handleUrlCreated}
             />
 
         </section>
