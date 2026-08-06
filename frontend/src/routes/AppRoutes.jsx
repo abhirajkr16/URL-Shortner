@@ -17,6 +17,7 @@ import PrivacyPage from "../modules/privacy/PrivacyPage";
 import TermsPage from "../modules/terms/TermsPage";
 import ProfilePage from "../modules/profile/ProfilePage";
 import QRPage from "../modules/qr/QRPage";
+import SettingsPage from "../modules/settings/SettingsPage";
 
 function AppRoutes() {
     return (
@@ -98,7 +99,13 @@ function AppRoutes() {
                     element={<ProfilePage />}
                 />
 
+                <Route
+                    path="settings"
+                    element={<SettingsPage />}
+                />
+
             </Route>
+
 
 
 

@@ -14,7 +14,25 @@ function UserDropdown() {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const dropdownRef = useRef(null);
 
-    const user = getUser();
+    const [user, setUser] = useState(getUser());
+
+    useEffect(() => {
+
+        function handleUserUpdate() {
+
+            setUser(getUser());
+
+        }
+
+        window.addEventListener("user-updated", handleUserUpdate);
+
+        return () => {
+
+            window.removeEventListener("user-updated", handleUserUpdate);
+
+        };
+
+    }, []);
 
     function handleLogout() {
 
@@ -159,7 +177,9 @@ function UserDropdown() {
 
                         </button>
 
-                        <button className="menu-item">
+                        <button className="menu-item"
+                            onClick={() => navigate("/dashboard/settings")}
+                        >
 
                             <i className="fa-solid fa-gear"></i>
 

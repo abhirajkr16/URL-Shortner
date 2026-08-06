@@ -1,16 +1,105 @@
-import { getUser } from "../../utils/token";
+import { useEffect, useState } from "react";
+
+import ProfileForm from "./ProfileForm";
+
+import {
+    getProfile,
+    updateProfile,
+} from "./profileService";
+
+import { saveUser } from "../../utils/token";
 
 import "./profile.css";
 
 function ProfilePage() {
 
-    const user = getUser();
+    const [profile, setProfile] = useState(null);
+
+    const [loading, setLoading] = useState(true);
+
+    const [showSuccess, setShowSuccess] =
+        useState(false);
+
+    useEffect(() => {
+
+        loadProfile();
+
+    }, []);
+
+    async function loadProfile() {
+
+        try {
+
+            const response =
+                await getProfile();
+
+            setProfile(response.data);
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+    async function handleSave(data) {
+
+        try {
+
+            const response =
+                await updateProfile(data);
+
+            const updatedUser = response.data;
+
+            saveUser({
+                id: updatedUser.id,
+                fullName: updatedUser.full_name,
+                username: updatedUser.username,
+                email: updatedUser.email
+            });
+
+            setProfile(updatedUser);
+
+            window.dispatchEvent(new Event("user-updated"));
+
+            setShowSuccess(true);
+
+            setTimeout(() => {
+
+                setShowSuccess(false);
+
+            }, 2000);
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+    if (loading) {
+
+        return <h2>Loading...</h2>;
+
+    }
 
     return (
 
         <div className="profile-page">
 
-            <div className="profile-header">
+            <div className="profile-card">
 
                 <h1>
 
@@ -20,77 +109,27 @@ function ProfilePage() {
 
                 <p>
 
-                    View your account information.
+                    Update your account information.
 
                 </p>
 
-            </div>
+                <ProfileForm
 
-            <div className="profile-card">
+                    profile={profile}
 
-                <div className="profile-avatar">
+                    onSave={handleSave}
 
-                    {
+                />
 
-                        user?.fullName
-                            ?.charAt(0)
-                            .toUpperCase()
+                {showSuccess && (
 
-                    }
+                    <div className="profile-success-popup">
 
-                </div>
-
-                <div className="profile-info">
-
-                    <div className="profile-item">
-
-                        <label>
-
-                            Full Name
-
-                        </label>
-
-                        <p>
-
-                            {user?.fullName}
-
-                        </p>
+                        Profile updated successfully
 
                     </div>
 
-                    <div className="profile-item">
-
-                        <label>
-
-                            Username
-
-                        </label>
-
-                        <p>
-
-                            {user?.username}
-
-                        </p>
-
-                    </div>
-
-                    <div className="profile-item">
-
-                        <label>
-
-                            Email
-
-                        </label>
-
-                        <p>
-
-                            {user?.email}
-
-                        </p>
-
-                    </div>
-
-                </div>
+                )}
 
             </div>
 
@@ -100,4 +139,4 @@ function ProfilePage() {
 
 }
 
-export default ProfilePage;                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+export default ProfilePage;

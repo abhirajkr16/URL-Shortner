@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { getUserUrls, deleteUrl, updateUrl, } from "../urls/urlService";
 import UrlTable from "../urls/UrlTable";
@@ -14,6 +15,8 @@ function RecentUrls({
     const [selectedUrl, setSelectedUrl] = useState(null);
 
     const [showEditModal, setShowEditModal] = useState(false);
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get("search") || "";
 
     useEffect(() => {
         fetchUrls();
@@ -118,6 +121,13 @@ function RecentUrls({
         return <p>Loading URLs...</p>;
     }
 
+    const filteredUrls = urls.filter((url) => {
+        const originalLower = url.original_url?.toLowerCase() || "";
+        const codeLower = url.short_code?.toLowerCase() || "";
+        const queryLower = search.toLowerCase();
+        return originalLower.includes(queryLower) || codeLower.includes(queryLower);
+    });
+
     return (
 
         <section className="recent-urls">
@@ -125,7 +135,7 @@ function RecentUrls({
             <h2>{title}</h2>
 
             <UrlTable
-                urls={urls}
+                urls={filteredUrls}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
             />

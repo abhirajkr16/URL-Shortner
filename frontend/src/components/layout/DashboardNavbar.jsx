@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import UserDropdown from "./UserDropdown";
 
@@ -6,7 +6,25 @@ import "./dashboard-navbar.css";
 
 function DashboardNavbar() {
 
-    const [search, setSearch] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const search = searchParams.get("search") || "";
+
+    function handleSearch(e) {
+
+        const value = e.target.value;
+
+        if (value) {
+
+            setSearchParams({ search: value });
+
+        } else {
+
+            setSearchParams({});
+
+        }
+
+    }
 
     return (
 
@@ -20,7 +38,7 @@ function DashboardNavbar() {
                     type="text"
                     placeholder="Search by URL or Short Code..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={handleSearch}
                     className="navbar-search"
                 />
 

@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
+import TooltipPopup from "../../components/ui/TooltipPopup";
 import { validateRegisterForm } from "./authValidation";
 import useForm from "../../hooks/useForm";
 import { registerUser } from "../../services/authService";
@@ -12,6 +13,14 @@ import { registerUser } from "../../services/authService";
 import "./register.css";
 
 function RegisterPage() {
+    const navigate = useNavigate();
+    const successTimeoutRef = useRef(null);
+    const errorTimeoutRef = useRef(null);
+
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
     const {
         form,
         errors,
@@ -25,6 +34,13 @@ function RegisterPage() {
         confirmPassword: "",
         agreeTerms: false,
     });
+
+    useEffect(() => {
+        return () => {
+            if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+        };
+    }, []);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -47,14 +63,22 @@ function RegisterPage() {
 
             console.log(response);
 
-            alert("Registration successful!");
+            setShowSuccess(true);
+            successTimeoutRef.current = setTimeout(() => {
+                navigate("/login");
+            }, 1800);
 
         } catch (error) {
             console.log("Full Error:", error);
             console.log("Response:", error.response);
             console.log("Data:", error.response?.data);
 
-            alert(error.response?.data?.message || "Registration failed.");
+            setErrorMsg(error.response?.data?.message || "Registration failed.");
+            setShowError(true);
+
+            errorTimeoutRef.current = setTimeout(() => {
+                setShowError(false);
+            }, 3000);
         }
     }
 
@@ -119,7 +143,7 @@ function RegisterPage() {
 
                     <h2>Create Account</h2>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} style={{ position: "relative" }}>
 
                         <Input
                             label="Full Name"
@@ -203,6 +227,18 @@ function RegisterPage() {
                         >
                             Create Account
                         </Button>
+
+                        {showSuccess && (
+                            <div className="auth-success-popup">
+                                Registration successful! Redirecting...
+                            </div>
+                        )}
+
+                        <TooltipPopup
+                            show={showError}
+                            message={errorMsg}
+                            type="error"
+                        />
 
                     </form>
 

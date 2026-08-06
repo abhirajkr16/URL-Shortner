@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getToken } from "../utils/token";
+import { getToken, clearAuth } from "../utils/token";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -8,6 +8,8 @@ const api = axios.create({
         "Content-Type": "application/json",
     },
 });
+
+let isRedirecting = false;
 
 api.interceptors.request.use(
 
@@ -26,6 +28,28 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 
+);
+
+api.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        const status = error.response?.status;
+        const requestUrl = error.config?.url || "";
+
+        const isAuthRoute = requestUrl.includes("/auth/login") || requestUrl.includes("/auth/register");
+
+        if (status === 401 && !isAuthRoute) {
+            if (!isRedirecting && window.location.pathname !== "/login") {
+                isRedirecting = true;
+                clearAuth();
+                window.location.href = "/login";
+            }
+        }
+
+        return Promise.reject(error);
+    }
 );
 
 export default api;

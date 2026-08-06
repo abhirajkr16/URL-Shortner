@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getAnalyticsOverview } from "./analyticsService";
 import "./analytics.css";
 
@@ -22,6 +22,8 @@ function AnalyticsOverviewPage() {
     const [overview, setOverview] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get("search") || "";
 
     useEffect(() => {
         fetchOverview();
@@ -72,6 +74,13 @@ function AnalyticsOverviewPage() {
     const totalClicks = overview.totalClicks || 0;
     const topUrls = overview.topUrls || [];
 
+    const filteredUrls = topUrls.filter((url) => {
+        const originalLower = url.original_url?.toLowerCase() || "";
+        const codeLower = url.short_code?.toLowerCase() || "";
+        const queryLower = search.toLowerCase();
+        return originalLower.includes(queryLower) || codeLower.includes(queryLower);
+    });
+
     return (
         <section className="analytics-page">
             <div className="analytics-header">
@@ -114,7 +123,7 @@ function AnalyticsOverviewPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {topUrls.map((url, index) => {
+                            {filteredUrls.map((url, index) => {
                                 const isExpired = url.expires_at && new Date(url.expires_at) < new Date();
                                 const isActive = !url.is_deleted && !isExpired;
 
