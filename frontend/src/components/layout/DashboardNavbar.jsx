@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import UserDropdown from "./UserDropdown";
+
 import "./dashboard-navbar.css";
 
 function DashboardNavbar() {
@@ -24,33 +26,7 @@ function DashboardNavbar() {
 
             </div>
 
-            <div className="navbar-user">
-
-                <div className="user-avatar">
-
-                    A
-
-                </div>
-
-                <div className="user-info">
-
-                    <span className="user-name">
-                        Abhiraj Kumar
-                    </span>
-
-                    <span className="user-role">
-                        Developer
-                    </span>
-
-                </div>
-
-                <button className="user-dropdown">
-
-                    <i className="fa-solid fa-chevron-down"></i>
-
-                </button>
-
-            </div>
+            <UserDropdown />
 
         </header>
 

@@ -1,0 +1,55 @@
+.terms-page {
+
+    padding: 2rem;
+
+}
+
+.terms-header {
+
+    margin-bottom: 2rem;
+
+}
+
+.terms-header h1 {
+
+    font-size: 2rem;
+
+    margin-bottom: .5rem;
+
+}
+
+.terms-header p {
+
+    color: #94A3B8;
+
+}
+
+.terms-card {
+
+    background: #111827;
+
+    border: 1px solid #1F2937;
+
+    border-radius: 16px;
+
+    padding: 2rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.terms-card h2 {
+
+    color: white;
+
+    margin-bottom: 1rem;
+
+}
+
+.terms-card p {
+
+    color: #CBD5E1;
+
+    line-height: 1.8;
+
+}

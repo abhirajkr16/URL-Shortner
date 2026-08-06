@@ -7,7 +7,7 @@
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     transition: width 0.3s ease;
     overflow: hidden;
 }
@@ -17,8 +17,9 @@
 }
 
 .sidebar-top {
-    display: flex;
-    flex-direction: column;
+
+    flex: 1;
+
 }
 
 .sidebar-nav {
@@ -68,11 +69,13 @@
 }
 
 .sidebar-footer {
+
+    margin-top: auto;
+
     padding: 18px 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+
+    border-top: 1px solid rgba(255, 255, 255, .08);
+
 }
 
 .theme-toggle-btn {
@@ -166,4 +169,47 @@
 
 .sidebar.collapsed .sidebar-logout i {
     margin: 0;
+}
+
+.sidebar-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 28px 20px 22px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+
+    margin-bottom: 20px;
+    cursor: pointer;
+
+}
+
+.brand-logo {
+
+    width: 42px;
+
+    height: 42px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+
+}
+
+.brand-name {
+
+    color: white;
+
+    font-size: 1.45rem;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
 }

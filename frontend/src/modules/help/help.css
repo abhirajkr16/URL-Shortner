@@ -1,0 +1,105 @@
+.help-page {
+
+    padding: 2rem;
+
+}
+
+.help-header {
+
+    margin-bottom: 2rem;
+
+}
+
+.help-header h1 {
+
+    font-size: 2rem;
+
+    margin-bottom: .5rem;
+
+}
+
+.help-header p {
+
+    color: #94A3B8;
+
+}
+
+.help-card {
+
+    background: #111827;
+
+    border: 1px solid #1F2937;
+
+    border-radius: 16px;
+
+    padding: 2rem;
+
+    margin-bottom: 2rem;
+
+}
+
+.help-card h2 {
+
+    margin-bottom: 1.5rem;
+
+    color: white;
+
+}
+
+.faq-item {
+
+    padding: 1.25rem 0;
+
+    border-bottom: 1px solid #374151;
+
+}
+
+.faq-item:last-child {
+
+    border-bottom: none;
+
+}
+
+.faq-item h3 {
+
+    margin-bottom: .5rem;
+
+    color: white;
+
+    font-size: 1.05rem;
+
+}
+
+.faq-item p {
+
+    color: #CBD5E1;
+
+    line-height: 1.7;
+
+}
+
+.contact-info {
+
+    display: flex;
+
+    gap: 4rem;
+
+    margin-top: 1.5rem;
+
+}
+
+.contact-info strong {
+
+    display: block;
+
+    margin-bottom: .4rem;
+
+    color: white;
+
+}
+
+.contact-info p {
+
+    color: #94A3B8;
+
+}

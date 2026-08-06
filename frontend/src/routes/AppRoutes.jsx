@@ -12,6 +12,11 @@ import DashboardPage from "../modules/dashboard/DashboardPage";
 import AnalyticsPage from "../modules/analytics/AnalyticsPage";
 import UrlPage from "../modules/urls/UrlPage";
 import AnalyticsOverviewPage from "../modules/analytics/AnalyticsOverviewPage";
+import HelpPage from "../modules/help/HelpPage";
+import PrivacyPage from "../modules/privacy/PrivacyPage";
+import TermsPage from "../modules/terms/TermsPage";
+import ProfilePage from "../modules/profile/ProfilePage";
+import QRPage from "../modules/qr/QRPage";
 
 function AppRoutes() {
     return (
@@ -47,25 +52,55 @@ function AppRoutes() {
                     </ProtectedRoute>
                 }
             >
+
                 <Route
                     index
                     element={<DashboardPage />}
                 />
 
                 <Route
+                    path="urls"
+                    element={<UrlPage />}
+                />
+
+                <Route
                     path="analytics"
                     element={<AnalyticsOverviewPage />}
                 />
+
                 <Route
                     path="analytics/:urlId"
                     element={<AnalyticsPage />}
                 />
 
                 <Route
-                    path="urls"
-                    element={<UrlPage />}
+                    path="qr-codes"
+                    element={<QRPage />}
                 />
+
+                <Route
+                    path="help"
+                    element={<HelpPage />}
+                />
+
+                <Route
+                    path="privacy"
+                    element={<PrivacyPage />}
+                />
+
+                <Route
+                    path="terms"
+                    element={<TermsPage />}
+                />
+
+                <Route
+                    path="profile"
+                    element={<ProfilePage />}
+                />
+
             </Route>
+
+
 
         </Routes>
     );

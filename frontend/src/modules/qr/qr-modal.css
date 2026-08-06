@@ -1,0 +1,103 @@
+.qr-modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .65);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(6px);
+
+}
+
+.qr-modal {
+
+    width: 520px;
+
+    background: #111827;
+
+    border: 1px solid #1F2937;
+
+    border-radius: 18px;
+
+    padding: 2rem;
+
+    position: relative;
+
+    animation: popup .25s ease;
+
+}
+
+@keyframes popup {
+
+    from {
+
+        transform: scale(.95);
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+    }
+
+}
+
+.qr-close {
+
+    position: absolute;
+
+    top: 16px;
+
+    right: 16px;
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+}
+
+.qr-wrapper {
+
+    margin: 2rem auto;
+
+    width: fit-content;
+
+    background: white;
+
+    padding: 1rem;
+
+    border-radius: 16px;
+
+}
+
+.qr-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 1rem;
+
+    margin-top: 2rem;
+
+}

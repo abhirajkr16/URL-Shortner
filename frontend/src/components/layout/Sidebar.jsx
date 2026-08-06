@@ -25,9 +25,9 @@ function Sidebar({ collapsed }) {
             icon: "fa-solid fa-chart-simple",
         },
         {
-            name: "Profile",
-            path: "/dashboard/profile",
-            icon: "fa-solid fa-user",
+            name: "QR Codes",
+            path: "/dashboard/qr-codes",
+            icon: "fa-solid fa-qrcode",
         },
     ];
     const navigate = useNavigate();
@@ -47,12 +47,34 @@ function Sidebar({ collapsed }) {
     return (
         <>
             <aside className={collapsed ? "sidebar collapsed" : "sidebar"}>
+                <div className="sidebar-brand" onClick={() => navigate("/dashboard")}>
+
+                    <img
+                        src="/src/assets/logo/logoshortify1.png"
+                        alt="Shortify Logo"
+                        className="brand-logo"
+                    />
+
+                    {
+                        !collapsed && (
+
+                            <h2 className="brand-name">
+
+                                <span style={{ color: "#22c55e" }}>short</span>ify
+
+                            </h2>
+
+                        )
+                    }
+
+                </div>
                 <div className="sidebar-top">
                     <nav className="sidebar-nav">
                         {navItems.map((item) => (
                             <NavLink
                                 key={item.path}
                                 to={item.path}
+                                end={item.path === "/dashboard"}
                                 className={({ isActive }) =>
                                     isActive ? "sidebar-link active" : "sidebar-link"
                                 }
@@ -69,10 +91,10 @@ function Sidebar({ collapsed }) {
                 </div>
 
                 <div className="sidebar-footer">
-                    <button className="theme-toggle-btn">
+                    {/* <button className="theme-toggle-btn">
                         <i className="fa-solid fa-moon"></i>
                         {!collapsed && <span>Dark Mode</span>}
-                    </button>
+                    </button> */}
 
                     <button
                         className="sidebar-logout"
