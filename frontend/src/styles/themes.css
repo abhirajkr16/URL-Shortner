@@ -1,0 +1,32 @@
+/* ==========================================
+   LIGHT THEME
+========================================== */
+
+[data-theme="light"] {
+
+    --color-background: #F8FAFC;
+
+    --color-surface: #FFFFFF;
+
+    --color-card: #F1F5F9;
+
+    --color-border: #CBD5E1;
+
+    --color-primary: #16A34A;
+
+    --color-primary-hover: #15803D;
+
+    --color-danger: #DC2626;
+
+    --color-danger-hover: #B91C1C;
+
+    --color-warning: #D97706;
+
+    --color-text: #111827;
+
+    --color-text-secondary: #64748B;
+
+    --shadow-md:
+        0 8px 30px rgba(15, 23, 42, .08);
+
+}
