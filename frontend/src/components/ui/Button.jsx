@@ -8,13 +8,15 @@ function Button({
     fullWidth = false,
     disabled = false,
     loading = false,
+    className = "",
     onClick,
 }) {
-    const className = [
+    const combinedClassName = [
         "button",
         `button--${variant}`,
         fullWidth ? "button--full" : "",
         loading ? "button--loading" : "",
+        className,
     ]
         .filter(Boolean)
         .join(" ");
@@ -22,7 +24,7 @@ function Button({
     return (
         <button
             type={type}
-            className={className}
+            className={combinedClassName}
             disabled={disabled || loading}
             onClick={onClick}
         >

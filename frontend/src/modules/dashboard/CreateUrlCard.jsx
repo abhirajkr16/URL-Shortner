@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { validateUrlForm } from "../urls/urlValidation";
 import { createShortUrl } from "../urls/urlService";
+import Button from "../../components/ui/Button";
+import TooltipPopup from "../../components/ui/TooltipPopup";
 
 function CreateUrlCard({ onUrlCreated }) {
     const [showAdvanced, setShowAdvanced] = useState(false);
@@ -14,8 +16,20 @@ function CreateUrlCard({ onUrlCreated }) {
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-    const [successMessage, setSuccessMessage] = useState("");
-    const [serverError, setServerError] = useState("");
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
+    const [showError, setShowError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const successTimeoutRef = useRef(null);
+    const errorTimeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+        };
+    }, []);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -29,8 +43,8 @@ function CreateUrlCard({ onUrlCreated }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        setSuccessMessage("");
-        setServerError("");
+        setShowSuccess(false);
+        setShowError(false);
 
         const validationErrors = validateUrlForm(form);
 
@@ -47,7 +61,16 @@ function CreateUrlCard({ onUrlCreated }) {
 
             console.log(response);
 
-            setSuccessMessage("Short URL created successfully.");
+            setSuccessMsg(
+                response.data?.message ||
+                "Short URL created successfully."
+            );
+            setShowSuccess(true);
+
+            if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+            successTimeoutRef.current = setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);
 
             setForm({
                 originalUrl: "",
@@ -61,10 +84,16 @@ function CreateUrlCard({ onUrlCreated }) {
                 onUrlCreated();
             }
         } catch (error) {
-            setServerError(
+            setErrorMsg(
                 error.response?.data?.message ||
-                "Failed to create short URL."
+                "Something went wrong. Please try again."
             );
+            setShowError(true);
+
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => {
+                setShowError(false);
+            }, 3000);
         } finally {
             setLoading(false);
         }
@@ -74,19 +103,7 @@ function CreateUrlCard({ onUrlCreated }) {
         <section className="create-url-card">
             <h2>Create Short URL</h2>
 
-            {successMessage && (
-                <p className="success-text">
-                    {successMessage}
-                </p>
-            )}
-
-            {serverError && (
-                <p className="error-text">
-                    {serverError}
-                </p>
-            )}
-
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ position: "relative" }}>
                 <div className="form-group">
                     <label htmlFor="originalUrl">
                         Long URL <span>*</span>
@@ -100,6 +117,7 @@ function CreateUrlCard({ onUrlCreated }) {
                         value={form.originalUrl}
                         onChange={handleChange}
                         required
+                        disabled={loading}
                     />
 
                     {errors.originalUrl && (
@@ -113,6 +131,7 @@ function CreateUrlCard({ onUrlCreated }) {
                     type="button"
                     className="toggle-button"
                     onClick={() => setShowAdvanced((previous) => !previous)}
+                    disabled={loading}
                 >
                     {showAdvanced
                         ? "Hide Advanced Options"
@@ -133,6 +152,7 @@ function CreateUrlCard({ onUrlCreated }) {
                                 placeholder="my-link"
                                 value={form.customAlias}
                                 onChange={handleChange}
+                                disabled={loading}
                             />
 
                             {errors.customAlias && (
@@ -153,17 +173,31 @@ function CreateUrlCard({ onUrlCreated }) {
                                 name="expiresAt"
                                 value={form.expiresAt}
                                 onChange={handleChange}
+                                disabled={loading}
                             />
                         </div>
                     </>
                 )}
-                <button
+                
+                <Button
                     type="submit"
                     className="create-button"
-                    disabled={loading}
+                    loading={loading}
                 >
-                    {loading ? "Creating..." : "Create Short URL"}
-                </button>
+                    Create Short URL
+                </Button>
+
+                <TooltipPopup
+                    show={showSuccess}
+                    message={successMsg}
+                    type="success"
+                />
+
+                <TooltipPopup
+                    show={showError}
+                    message={errorMsg}
+                    type="error"
+                />
             </form>
         </section>
     );
