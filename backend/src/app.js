@@ -9,6 +9,7 @@ import analyticsRoutes from "./routes/api/v1/analytics.routes.js";
 
 import errorMiddleware from "./middleware/error.middleware.js";
 import dashboardRoutes from "./routes/api/v1/dashboard.routes.js";
+import profileRoutes from "./routes/api/v1/profile.routes.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/v1/urls", urlRoutes);
 app.use("/", redirectRoutes);
 app.use("/api/v1/analytics", analyticsRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/profile", profileRoutes);
 
 app.use(errorMiddleware);
 

@@ -12,6 +12,7 @@ function Input({
     onChange,
     error = "",
     required = false,
+    disabled = false,
 }) {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -31,6 +32,7 @@ function Input({
                     value={value}
                     onChange={onChange}
                     required={required}
+                    disabled={disabled}
                 />
 
                 {isPassword && (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-// import ConfirmationModal from "../../components/ui/Modal";
+import { validateUrlForm } from "./urlValidation";
 
 function EditUrlModal({
     isOpen,
@@ -14,8 +13,9 @@ function EditUrlModal({
         expiresAt: "",
     });
 
+    const [errors, setErrors] = useState({});
+
     useEffect(() => {
-        // console.log(url);
         if (!url) {
             return;
         }
@@ -27,7 +27,9 @@ function EditUrlModal({
                 : "",
         });
 
-    }, [url]);
+        setErrors({});
+
+    }, [url, isOpen]);
 
     function handleChange(event) {
 
@@ -38,11 +40,23 @@ function EditUrlModal({
             [name]: value,
         }));
 
+        setErrors((previousErrors) => ({
+            ...previousErrors,
+            [name]: "",
+        }));
+
     }
 
     async function handleSubmit(event) {
 
         event.preventDefault();
+
+        const validationErrors = validateUrlForm(form);
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
 
         await onSave({
             id: url.id,
@@ -78,6 +92,12 @@ function EditUrlModal({
                             onChange={handleChange}
                             required
                         />
+
+                        {errors.originalUrl && (
+                            <p className="input__error">
+                                {errors.originalUrl}
+                            </p>
+                        )}
 
                     </div>
 

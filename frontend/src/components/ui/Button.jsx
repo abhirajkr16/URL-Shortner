@@ -1,3 +1,4 @@
+import Loader from "./Loader";
 import "./Button.css";
 
 function Button({
@@ -6,12 +7,14 @@ function Button({
     variant = "primary",
     fullWidth = false,
     disabled = false,
+    loading = false,
     onClick,
 }) {
     const className = [
         "button",
         `button--${variant}`,
         fullWidth ? "button--full" : "",
+        loading ? "button--loading" : "",
     ]
         .filter(Boolean)
         .join(" ");
@@ -20,10 +23,17 @@ function Button({
         <button
             type={type}
             className={className}
-            disabled={disabled}
+            disabled={disabled || loading}
             onClick={onClick}
         >
-            {children}
+            {loading ? (
+                <>
+                    <Loader size="sm" inline />
+                    <span style={{ marginLeft: "8px" }}>Loading...</span>
+                </>
+            ) : (
+                children
+            )}
         </button>
     );
 }

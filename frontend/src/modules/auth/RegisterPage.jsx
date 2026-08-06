@@ -20,6 +20,7 @@ function RegisterPage() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const {
         form,
@@ -54,6 +55,7 @@ function RegisterPage() {
         }
 
         try {
+            setLoading(true);
             const response = await registerUser({
                 fullName: form.fullName,
                 username: form.username,
@@ -69,6 +71,7 @@ function RegisterPage() {
             }, 1800);
 
         } catch (error) {
+            setLoading(false);
             console.log("Full Error:", error);
             console.log("Response:", error.response);
             console.log("Data:", error.response?.data);
@@ -152,6 +155,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Enter your full name"
                             error={errors.fullName}
+                            disabled={loading}
                         />
                         <Input
                             label="Username"
@@ -160,6 +164,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Enter your username"
                             error={errors.username}
+                            disabled={loading}
                         />
 
                         <Input
@@ -170,6 +175,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Enter your email"
                             error={errors.email}
+                            disabled={loading}
                         />
 
                         <Input
@@ -180,6 +186,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Enter your password"
                             error={errors.password}
+                            disabled={loading}
                         />
 
                         <Input
@@ -190,6 +197,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             placeholder="Confirm your password"
                             error={errors.confirmPassword}
+                            disabled={loading}
                         />
 
                         <label className="checkbox">
@@ -199,6 +207,7 @@ function RegisterPage() {
                                 name="agreeTerms"
                                 checked={form.agreeTerms}
                                 onChange={handleChange}
+                                disabled={loading}
                             />
 
                             <span>
@@ -223,6 +232,7 @@ function RegisterPage() {
                         <Button
                             type="submit"
                             variant="primary"
+                            loading={loading}
                             fullWidth
                         >
                             Create Account

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
+import TooltipPopup from "../../components/ui/TooltipPopup";
 
 import { validateLoginForm } from "./authValidation";
 import { loginUser } from "../../services/authService";
@@ -19,6 +20,7 @@ import "./login.css";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const errorTimeoutRef = useRef(null);
 
     const [form, setForm] = useState({
         email: "",
@@ -27,6 +29,15 @@ function LoginPage() {
     });
 
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    useEffect(() => {
+        return () => {
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+        };
+    }, []);
 
     function handleChange(event) {
 
@@ -60,10 +71,9 @@ function LoginPage() {
         }
 
         try {
+            setLoading(true);
 
             const response = await loginUser(form);
-
-            // console.log(response);
 
             saveToken(response.data.token);
 
@@ -73,13 +83,17 @@ function LoginPage() {
 
         }
         catch (error) {
+            setLoading(false);
 
             console.error(error);
 
-            alert(
-                error.response?.data?.message ||
-                "Login failed."
-            );
+            setErrorMsg(error.response?.data?.message || "Login failed.");
+            setShowError(true);
+
+            if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+            errorTimeoutRef.current = setTimeout(() => {
+                setShowError(false);
+            }, 3000);
 
         }
 
@@ -143,7 +157,7 @@ function LoginPage() {
 
                     <h2>Sign In</h2>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} style={{ position: "relative" }}>
 
                         <Input
                             label="Email"
@@ -153,6 +167,7 @@ function LoginPage() {
                             value={form.email}
                             onChange={handleChange}
                             error={errors.email}
+                            disabled={loading}
                         />
 
                         <Input
@@ -163,6 +178,7 @@ function LoginPage() {
                             value={form.password}
                             onChange={handleChange}
                             error={errors.password}
+                            disabled={loading}
                         />
 
                         <div className="login__options">
@@ -174,6 +190,7 @@ function LoginPage() {
                                     name="rememberMe"
                                     checked={form.rememberMe}
                                     onChange={handleChange}
+                                    disabled={loading}
                                 />
 
                                 Remember Me
@@ -189,10 +206,17 @@ function LoginPage() {
                         <Button
                             type="submit"
                             variant="primary"
+                            loading={loading}
                             fullWidth
                         >
                             Sign In
                         </Button>
+
+                        <TooltipPopup
+                            show={showError}
+                            message={errorMsg}
+                            type="error"
+                        />
 
                     </form>
 

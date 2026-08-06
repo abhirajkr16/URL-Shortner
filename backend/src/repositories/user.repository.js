@@ -89,3 +89,118 @@ export const createUser = async ({
 
   return result.insertId;
 };
+
+export const getUserProfileById = async (userId) => {
+
+  const [rows] = await pool.execute(
+    `
+        SELECT
+            id,
+            full_name,
+            username,
+            email,
+            created_at
+        FROM users
+        WHERE id = ?
+        `,
+    [userId]
+  );
+
+  return rows[0];
+
+};
+export const updateUserProfile = async ({
+  id,
+  fullName,
+  username,
+  email,
+  passwordHash,
+}) => {
+
+  if (passwordHash) {
+
+    const [result] = await pool.execute(
+      `
+            UPDATE users
+            SET
+                full_name = ?,
+                username = ?,
+                email = ?,
+                password_hash = ?
+            WHERE id = ?
+            `,
+      [
+        fullName,
+        username,
+        email,
+        passwordHash,
+        id,
+      ]
+    );
+
+    return result.affectedRows;
+
+  }
+
+  const [result] = await pool.execute(
+    `
+        UPDATE users
+        SET
+            full_name = ?,
+            username = ?,
+            email = ?
+        WHERE id = ?
+        `,
+    [
+      fullName,
+      username,
+      email,
+      id,
+    ]
+  );
+
+  return result.affectedRows;
+
+};
+export const findUserByEmailExceptId = async (
+  email,
+  userId,
+) => {
+
+  const [rows] = await pool.execute(
+    `
+        SELECT id
+        FROM users
+        WHERE email = ?
+          AND id <> ?
+        `,
+    [
+      email,
+      userId,
+    ]
+  );
+
+  return rows[0];
+
+};
+export const findUserByUsernameExceptId = async (
+  username,
+  userId,
+) => {
+
+  const [rows] = await pool.execute(
+    `
+        SELECT id
+        FROM users
+        WHERE username = ?
+          AND id <> ?
+        `,
+    [
+      username,
+      userId,
+    ]
+  );
+
+  return rows[0];
+
+};

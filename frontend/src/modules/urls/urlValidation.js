@@ -14,7 +14,7 @@ export function validateUrlForm(form) {
         }
     }
 
-    if (form.customAlias.length > 50) {
+    if (form.customAlias?.length > 50) {
         errors.customAlias = "Alias cannot exceed 50 characters";
     }
 
