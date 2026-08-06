@@ -22,7 +22,7 @@ function UrlTableRow({
     async function handleCopy() {
 
         const shortUrl =
-            `http://localhost:3000/${url.short_code}`;
+            `${import.meta.env.VITE_SHORTENED_BASE_URL}/${url.short_code}`;
 
         const success =
             await copyToClipboard(shortUrl);

@@ -35,7 +35,7 @@ function QRModal({
     }
 
     const shortUrl =
-        `http://localhost:3000/api/v1/redirect/${url.short_code}`;
+        `${import.meta.env.VITE_SHORTENED_BASE_URL}/${url.short_code}`;
 
     async function handleCopy() {
 

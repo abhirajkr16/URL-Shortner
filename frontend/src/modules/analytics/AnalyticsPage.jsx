@@ -74,7 +74,7 @@ function AnalyticsPage() {
                     <div className="detail-item">
                         <span className="detail-label">Short URL</span>
                         <a
-                            href={`http://localhost:3000/${url.short_code}`}
+                            href={`${import.meta.env.VITE_SHORTENED_BASE_URL}/${url.short_code}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="detail-value short-url-link"

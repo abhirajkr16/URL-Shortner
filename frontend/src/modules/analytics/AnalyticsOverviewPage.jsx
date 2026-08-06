@@ -132,7 +132,7 @@ function AnalyticsOverviewPage() {
                                         <td>{index + 1}</td>
                                         <td>
                                             <a
-                                                href={`http://localhost:3000/${url.short_code}`}
+                                                href={`${import.meta.env.VITE_SHORTENED_BASE_URL}/${url.short_code}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="short-url"
