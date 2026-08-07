@@ -124,5 +124,7 @@ To run both backend and frontend servers locally:
 - **Bulk URL Import**: Allow shortening multiple links simultaneously from CSV uploads.
 - **Custom Domain Mapping**: Let users connect their own custom domains for short URLs.
 
+LIVE DEMO: url-shortner-production-dd38.up.railway.app
+
 ## Author
 Abhiraj Kumar
