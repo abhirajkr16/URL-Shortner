@@ -5,6 +5,7 @@ import useTheme from "../../hooks/useTheme";
 import { logout } from "../../services/authService";
 
 import ConfirmationModal from "../ui/ConfirmationModal";
+import logo from "../../assets/logo/logoshortify1.png";
 
 import "./sidebar.css";
 function Sidebar({ collapsed }) {
@@ -50,7 +51,7 @@ function Sidebar({ collapsed }) {
                 <div className="sidebar-brand" onClick={() => navigate("/dashboard")}>
 
                     <img
-                        src="/src/assets/logo/logoshortify1.png"
+                        src={logo}
                         alt="Shortify Logo"
                         className="brand-logo"
                     />
