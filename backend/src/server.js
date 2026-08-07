@@ -10,7 +10,9 @@ async function startServer() {
 
     console.log(" Connected to MySQL");
 
-    await redisClient.connect();
+    if (!redisClient.isOpen) {
+      await redisClient.connect();
+    }
     console.log("Connected to Redis");
 
     connection.release();
