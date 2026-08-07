@@ -111,9 +111,13 @@ To run both backend and frontend servers locally:
 4. Open your browser and navigate to `http://localhost:5173`.
 
 ## Screenshots
-- **Landing Page**: *[Insert Landing Page Mockup]*
-- **User Dashboard**: *[Insert Dashboard View]*
-- **Analytics Overview**: *[Insert Analytics Summary Table]*
+- **Landing Page**: 
+![Landing Page](./src/assets/images/image.png)
+
+- **User Dashboard**: 
+![Dashboard](./src/assets/images/dashboard.png)
+- **Analytics Overview**: 
+![Analytics](./src/assets/images/analytics.png)
 
 ## Future Improvements
 - **Click Geo-Location**: Monitor country and browser metadata for click events.
@@ -121,4 +125,4 @@ To run both backend and frontend servers locally:
 - **Custom Domain Mapping**: Let users connect their own custom domains for short URLs.
 
 ## Author
-Developer
+Abhiraj Kumar
