@@ -3,22 +3,18 @@
 import redisClient from "../config/redis.js";
 
 export const getCache = async (key) => {
-    const value = await redisClient.get(key);
-    return value ? JSON.parse(value) : null;
+  const value = await redisClient.get(key);
+  return value ? JSON.parse(value) : null;
 };
 
 export const setCache = async (key, value, ttlInSeconds) => {
-    await redisClient.set(
-        key,
-        JSON.stringify(value),
-        {
-            EX: ttlInSeconds,
-        }
-    );
+  await redisClient.set(key, JSON.stringify(value), {
+    EX: ttlInSeconds,
+  });
 };
 
 export const deleteCache = async (key) => {
-    await redisClient.del(key);
+  await redisClient.del(key);
 };
 
 // notes: class-based architecture,

@@ -14,19 +14,19 @@ import profileRoutes from "./routes/api/v1/profile.routes.js";
 const app = express();
 
 app.use(
-    cors({
-        // origin: process.env.CORS_ORIGIN || "http://localhost:5173",
-        origin: process.env.CORS_ORIGIN || "http://localhost:5173",
-        credentials: true,
-    })
+  cors({
+    // origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  }),
 );
 
 app.use(express.json());
 app.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Backend is running successfully",
-    });
+  res.status(200).json({
+    success: true,
+    message: "Backend is running successfully",
+  });
 });
 
 app.use("/api/v1", indexRoutes);
